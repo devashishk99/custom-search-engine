@@ -1,0 +1,4 @@
+Flask
+Whoosh
+bs4
+requests
