@@ -4,11 +4,20 @@ from bs4 import BeautifulSoup
 import re
 from urllib.parse import urljoin
 import json
+from whoosh.fields import Schema, TEXT
+from whoosh.analysis import StemmingAnalyzer
+from indexer import index
 
 logging.basicConfig(
     format='%(asctime)s %(levelname)s:%(message)s',
     level=logging.INFO
 )
+
+# instantiating schema
+schema = Schema(title=TEXT(stored=True),
+                topic=TEXT(stored=True),
+                link=TEXT(stored=True),
+                body=TEXT(stored=True, analyzer=StemmingAnalyzer()))
 
 # save function
 def save_function(pod_list):
@@ -88,5 +97,15 @@ class Spider:
                 logging.exception(f'Failed to crawl: {url} - {e}')
             finally:
                 self.visited_urls.append(url)
+
+if __name__ == "__main__":
+    url = 'https://www.hubermanlab.com/podcast'
+    crawler = Spider(url)
+    crawler.run()
+    save_function(crawler.content)
+    print('Finished crawling')
+    print('Starting indexing')
+    index(schema)
+    print('Finished indexing')
 
 
