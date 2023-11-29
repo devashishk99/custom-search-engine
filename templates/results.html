@@ -16,7 +16,7 @@
             <div class="col col-lg-10 col-sm-12">
                 <a href="{{ url_for('index_get')}}"><p class="h4 u-text-center u-mb-1">Search Huberman&nbsp;Lab</p></a>
                 <div class="autcomplete">
-                    <form name="input" action="/search" method="post" class="searchForm">
+                    <form name="input" action="{{ url_for('search')}}" method="post" class="searchForm">
                         <div class="inputPrefix">
                             <label class="label">
                             <button class="submit" type="submit" value="Search">
