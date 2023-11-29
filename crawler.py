@@ -13,19 +13,26 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-# instantiating schema
+## instantiating schema
 schema = Schema(title=TEXT(stored=True),
                 topic=TEXT(stored=True),
                 link=TEXT(stored=True),
                 body=TEXT(stored=True, analyzer=StemmingAnalyzer()))
 
-# save function
+## save data for later usage.
 def save_function(pod_list):
     with open('podcasts.txt', 'w+') as outfile:
         json.dump(pod_list, outfile)
 
 
 class Spider:
+    """This class defines the skeleton of the crawler. First, it gets the
+    HTML content of the given URL (dowland_url). Then it extracts the URLs
+    by parsing the HTML content (get_linked_urls). Then it adds the URLs to 
+    a list of 'should visit URLs' (add_url_to_visit). And finally fetches the
+    content of the podcast (get_content)."""
+
+    
     def __init__(self, url):
         self.visited_urls = []
         self.urls_to_visit = [url]
@@ -98,6 +105,8 @@ class Spider:
             finally:
                 self.visited_urls.append(url)
 
+
+## It runs the crawler as a script and then indexes the results.
 if __name__ == "__main__":
     url = 'https://www.hubermanlab.com/podcast'
     crawler = Spider(url)
