@@ -19,7 +19,7 @@ schema = Schema(title=TEXT(stored=True),
                 link=TEXT(stored=True),
                 body=TEXT(stored=True, analyzer=StemmingAnalyzer()))
 
-## save data for later usage.
+## save data for later usage creating the file podcasts.txt.
 def save_function(pod_list):
     with open('podcasts.txt', 'w+') as outfile:
         json.dump(pod_list, outfile)
