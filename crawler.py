@@ -106,7 +106,9 @@ class Spider:
                 self.visited_urls.append(url)
 
 
-## It runs the crawler as a script and then indexes the results.
+## it runs the crawler as a script and then indexes the results. The index function can
+## be seen in 'indexer.py'; it uses the podcasts.txt created by the save_function and
+## adds the content to an index (new or already existent).
 if __name__ == "__main__":
     url = 'https://www.hubermanlab.com/podcast'
     crawler = Spider(url)
