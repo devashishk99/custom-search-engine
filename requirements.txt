@@ -1,4 +1,4 @@
 Flask
-Whoosh
+whoosh
 bs4
 requests

@@ -5,7 +5,8 @@ import re
 from urllib.parse import urljoin
 import json
 from whoosh.fields import Schema, TEXT
-from whoosh.analysis import StemmingAnalyzer
+from whoosh.analysis import CharsetFilter, StemmingAnalyzer
+from whoosh.support.charset import accent_map
 from indexer import index
 
 logging.basicConfig(
@@ -13,11 +14,14 @@ logging.basicConfig(
     level=logging.INFO
 )
 
+# adding an accent-folding filter to a stemming analyzer
+analyser = StemmingAnalyzer() | CharsetFilter(accent_map)
+
 ## instantiating schema
-schema = Schema(title=TEXT(stored=True),
-                topic=TEXT(stored=True),
+schema = Schema(title=TEXT(stored=True, analyzer=analyser, spelling=True),
+                topic=TEXT(stored=True, analyzer=analyser),
                 link=TEXT(stored=True),
-                body=TEXT(stored=True, analyzer=StemmingAnalyzer()))
+                body=TEXT(stored=True, analyzer=analyser))
 
 ## save data for later usage creating the file podcasts.txt.
 def save_function(pod_list):
@@ -114,6 +118,7 @@ if __name__ == "__main__":
     crawler = Spider(url)
     crawler.run()
     save_function(crawler.content)
+    print(len(crawler.visited_urls))
     print('Finished crawling')
     print('Starting indexing')
     index(schema)

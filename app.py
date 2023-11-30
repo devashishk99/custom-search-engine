@@ -24,8 +24,8 @@ def index_get():
 @app.route("/search", methods=["POST"]) 
 def search():
     query = request.form["search_query"] 
-    results = search_term(query)
-    return render_template("results.html", result=results, word=query) # return the rendered html
+    results, dym_flag, corr_word = search_term(query)
+    return render_template("results.html", result=results, word=query, dym=dym_flag, corr_word=corr_word) # return the rendered html
 
 #main function
 if __name__ == "__main__":
