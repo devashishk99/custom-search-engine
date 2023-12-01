@@ -23,9 +23,10 @@ def add_html_tags(input_string, keyword, html_tag):
         # Search for the keyword in the input string
         match = pattern.search(input_string)
 
-        # If the keyword is found, store it in the variable
-        found_keyword = match.group(0)
-        input_string = pattern.sub(f'<{html_tag} class="match">{found_keyword}</{html_tag}>', input_string)
+        # If the keyword is found, highlight it by adding html tags around it
+        if match:
+            found_keyword = match.group(0)
+            input_string = pattern.sub(f'<{html_tag} class="match">{found_keyword}</{html_tag}>', input_string)
 
     return input_string
 
