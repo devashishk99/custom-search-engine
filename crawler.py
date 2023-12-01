@@ -30,12 +30,24 @@ def save_function(pod_list):
 
 
 class Spider:
-    """This class defines the skeleton of the crawler. First, it gets the
-    HTML content of the given URL (dowland_url). Then it extracts the URLs
-    by parsing the HTML content (get_linked_urls). Then it adds the URLs to 
-    a list of 'should visit URLs' (add_url_to_visit). And finally fetches the
-    content of the podcast (get_content)."""
+    """
+    Spider class for retrieving and parsing web content.
 
+    Attributes:
+    - url (str): The starting point for crawling.
+    - urls_to_visit (list): The maximum depth to crawl, limiting how far into the website the crawler explores.
+    - visited_urls (list): A set to keep track of visited URLs to avoid duplicate requests.
+    - content (list): A list to store crawled data, typically in the form of dictionaries.
+
+    Methods:
+    - run(): Checks for the url to be visited and calls the crawl method.
+    - crawl(base_url): Initiates the crawling process starting from the base_url which subsquently finds other urls.
+    - download_url(url): Makes get request to url and returns the text response.
+    - get_linked_urls(url, html): Parses through the html content and yeilds all links present in webpage.
+    - add_url_to_visit(url): Adds the url to a list of 'should visit URLs' if it has not been visited yet.
+    - get_content(link): Extracts relevant information from the link of a webpage.
+
+    """
     
     def __init__(self, url):
         self.visited_urls = []
@@ -99,8 +111,6 @@ class Spider:
             logging.info(f'Crawling: {url} ')
             try:
                 self.crawl(url)
-            except requests.exceptions.RequestException as e:
-                logging.error(f'Failed to crawl: {url} - {e}')
             except KeyboardInterrupt:
                 print('\n'f'Keyboard Interrupt!')
                 break
@@ -109,16 +119,17 @@ class Spider:
             finally:
                 self.visited_urls.append(url)
 
-
-## it runs the crawler as a script and then indexes the results. The index function can
-## be seen in 'indexer.py'; it uses the podcasts.txt created by the save_function and
-## adds the content to an index (new or already existent).
+"""
+1. The crawler is instantiated and it starts crawling from the starting url.
+2. The scrapped content is saved.
+3. Then it indexes the results.
+"""
 if __name__ == "__main__":
     url = 'https://www.hubermanlab.com/podcast'
     crawler = Spider(url)
     crawler.run()
     save_function(crawler.content)
-    print(len(crawler.visited_urls))
+    print(len(crawler.content))
     print('Finished crawling')
     print('Starting indexing')
     index(schema)

@@ -2,6 +2,16 @@ import os, ast
 from whoosh.index import create_in, open_dir
 
 def index(schema):
+    """
+    Indexes crawled data into a search index.
+    Saves in the form of dictionary which includes fields like 
+    'title', 'content', 'url', etc.
+    
+    Parameters:
+    - schema: The schema specifies the fields of documents in an index 
+              whose structure is defined in crawler.py.
+    
+    """
     content = []
     with open('podcasts.txt', 'r') as content_file:
         content = ast.literal_eval(content_file.read())

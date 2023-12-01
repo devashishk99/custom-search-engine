@@ -26,7 +26,7 @@
                             </button></label>
                         </div>
                         <div class="inputMain">
-                            <input type="search" name="search_query" class="ipmain" placeholder="What are you looking for?">
+                            <input type="search" name="search_query" class="ipmain" id="searchBar" placeholder="Which episode are you looking for?">
                         </div>
                         <div class="inputSuffix">
                             <button class="clearButton" type="reset" title="Clear" hidden>
@@ -34,6 +34,15 @@
                             </button>
                         </div>
                     </form>
+                    <div class="searchSuggestion">
+                        <div class="suggText"><p class="h5 u-mb-1">Suggestions: </p></div>
+                        <div>
+                            <button class="topicSugg" onclick="addKeyword('Mental Health')">Mental Health</button>
+                            <button class="topicSugg" onclick="addKeyword('Focus')">Focus</button>
+                            <button class="topicSugg" onclick="addKeyword('Light')">Light</button>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,5 +54,14 @@
 		<p class="h6 u-text-center u-mb-1"> Developed @ UniOsna </p>
 	</footer>
 	</div>
+    <script>
+        function addKeyword(keyword) {
+            // Get the search bar element
+            var searchBar = document.getElementById('searchBar');
+        
+            // Set the value of the search bar to the clicked keyword
+            searchBar.value = keyword;
+        }
+        </script>
 </body>
 </html>

@@ -51,6 +51,15 @@ h4 {
     line-height: 1
 }
 
+.h5 {
+    letter-spacing: -.04em;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1
+}
+
 .h6 {
     letter-spacing: -.04em;
     margin-top: 0;
@@ -248,6 +257,20 @@ form{
 	align-items: center;
 }
 
+.searchSuggestion{
+    padding: 10px 24px;
+	display: flex;
+    line-height: 1em;
+    margin: 0;
+    position: relative;
+    width: 100%;
+	align-items: baseline;
+}
+
+.suggText{
+	margin-right: 10px;
+}
+
 .submit{
 	appearance: none;
     background: none;
@@ -406,6 +429,17 @@ input[type=search]:focus {
     font-weight: 600;
     line-height: 1;
     color: #666;
+}
+
+.topicSugg{
+	padding: 7px 15px;
+    border: 1px solid #dedddd;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    color: #6b90d3;
+    margin: 10px 10px;
 }
 
 .match{
